@@ -1,0 +1,85 @@
+{% extends "base.html" %} {% block content %} {% load static %}
+<section class="content">
+    <div class="logodiv">
+        <img src="{% static 'img/x.avif' %}" class="twitterlog" alt="">
+        <h1>Home</h1>
+    </div>
+
+
+    <section class="post_form">
+        <form action="/" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <input type="text" name="name" placeholder="Name" required />
+            <textarea name="body" placeholder="What's happening? " required></textarea>
+            <input type="file" name="image">
+            <input type="submit" value="Tweet">
+        </form>
+    </section>
+    <section class=" posts">
+        <ul style="list-style: none;">
+            {% for post in posts %}
+            <li style="position: relative;">
+
+                <img class="menu" width ="20px" src="{% static 'img/menu.png'%}" style="position: absolute;right:15px"/>
+                <div class="edit-div" style="display: none;">
+                     <a href="/delete/{{post.id}}/" class="delete">delete</a>
+                     <a href="/edit/{{post.id}}/" class="delete">edit</a>
+                </div>
+            
+            
+
+
+                <div class="logo">
+                    <img src="{% static 'img/profileimg.webp' %}" />
+                </div>
+                <div class="name_body">
+                    <div class="name">{{ post.name}} </div>
+                    <div class="datetime">{{post.created_at}}</div>
+                    <p>{{post.body}} </p>
+                   <br>
+
+                   {% if post.image.url %}
+                   <img class="post-image" src="{{ post.image.url }}" width="100%" alt="">
+                   {% endif %}
+
+                   <form action="{% url 'like' post.pk %}" method="POST" id="likes-form">
+                    {% csrf_token %}
+                    <div class="row">
+                        <button class="like-button" type="submit", name="post_id" value="{{post.id}}">&#10084;</button>{{post.likes}}
+                    </div>
+                   </form>
+
+
+            </li>
+            {%endfor%} 
+        </ul>
+            
+    </section>
+
+</section>
+             {% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
