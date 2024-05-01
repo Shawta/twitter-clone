@@ -42,7 +42,7 @@
                    <img class="post-image" src="{{ post.image.url }}" width="100%" alt="">
                    {% endif %}
 
-                   <form action="{% url 'like' post.pk %}" method="POST" id="likes-form">
+                   <form style="margin-bottom:10px" action="{% url 'like' post.pk %}" method="POST" id="likes-form">
                     {% csrf_token %}
                     <div class="row">
                         <button class="like-button" type="submit", name="post_id" value="{{post.id}}">&#10084;</button>{{post.likes}}
